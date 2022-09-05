@@ -17,7 +17,67 @@ class Home extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.only(top: 20, right: 20, left: 20),
             child: Column(
-              children: const [AppHeader(), Divider(), Tiles()],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const AppHeader(),
+                const Divider(),
+                const SizedBox(height: 10),
+                Container(
+                  height: 200,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Color.fromRGBO(77, 107, 249, 1)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: const [
+                        Text(
+                          "Balance",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          "\$450,452",
+                          style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          "Monthly Profit",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          "\$12,240",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                const Text(
+                  "Trending Coins ",
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Tiles(),
+              ],
             ),
           ),
         ),

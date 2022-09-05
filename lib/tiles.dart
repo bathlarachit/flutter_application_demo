@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'constants.dart';
 
@@ -10,22 +14,52 @@ class Tiles extends StatefulWidget {
 }
 
 class _TilesState extends State<Tiles> {
+  final _price = <double>[0, 0, 0];
+  final twoSec = const Duration(seconds: 2);
+
+  void load() async {
+    final response = await http.get(Uri.parse(url));
+    final body = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      int i = 0;
+      for (var u in body) {
+        _price[i++] = double.parse(double.parse(u["price"]).toStringAsFixed(2));
+      }
+    } else {
+      print("Error as occured");
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    load();
+    Timer.periodic(twoSec, (timer) => load());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         TilesListCard(
             name: "Bitcoin",
             img: "assets/btc-logo.png",
-            price: 1200,
+            price: _price[0],
             sname: "BTC"),
         TilesListCard(
             name: "Etherium",
             img: "assets/eth-logo.png",
-            price: 1200,
+            price: _price[1],
             sname: "ETH"),
         TilesListCard(
-            name: "XRP", img: "assets/xrp-logo.png", price: 1200, sname: "XRP"),
+            name: "XRP",
+            img: "assets/xrp-logo.png",
+            price: _price[2],
+            sname: "XRP"),
       ],
     );
   }
